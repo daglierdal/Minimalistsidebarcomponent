@@ -1,9 +1,9 @@
 const projects = [
   {
-    name: "MACFit Gankaya",
+    name: "MACFit Çankaya",
     location: "Ankara/Çankaya",
     amount: "850",
-    date: "1 Haz 2026",
+    date: "01.06.26",
     progress: 35,
     status: "Devam Ediyor",
     statusType: "active",
@@ -12,17 +12,17 @@ const projects = [
     name: "MACFit Bursa Nilüfer",
     location: "Bursa/Nilüfer",
     amount: "950",
-    date: "1 Eyl 2026",
+    date: "01.09.26",
     progress: 0,
-    status: "İstanbul/Kadıköy",
+    status: "Planlama",
     statusType: "location",
   },
   {
-    name: "MACFit Bursa Nilüfer",
-    location: "Bursa/Nilüfer",
+    name: "MACFit Kadıköy",
+    location: "İstanbul/Kadıköy",
     amount: "950",
-    date: "1 Eyl 2026",
-    progress: 0,
+    date: "01.09.26",
+    progress: 10,
     status: "Aktif",
     statusType: "subtle",
   },
@@ -30,7 +30,7 @@ const projects = [
     name: "Yargıcı Nişantaşı",
     location: "İstanbul/Nişantaşı",
     amount: "320",
-    date: "20 May 2026",
+    date: "20.05.26",
     progress: 60,
     status: "Devam Ediyor",
     statusType: "active",
@@ -39,12 +39,35 @@ const projects = [
     name: "Koton Ankara Kızılay",
     location: "Ankara/Kızılay",
     amount: "450",
-    date: "15 Ağu 2026",
+    date: "15.08.26",
     progress: 0,
     status: "Aktif",
     statusType: "subtle",
   },
 ];
+
+function StatusBadge({ status, statusType }: { status: string; statusType: string }) {
+  if (statusType === "active") {
+    return (
+      <span className="inline-block px-2.5 py-1 rounded-full text-xs border border-amber-500/60 text-amber-400 bg-amber-500/10">
+        {status}
+      </span>
+    );
+  }
+  if (statusType === "subtle") {
+    return (
+      <span className="inline-block px-2.5 py-1 rounded-full text-xs border border-[#4F8CFF]/40 text-[#4F8CFF] bg-[#4F8CFF]/10">
+        {status}
+      </span>
+    );
+  }
+  // location / default
+  return (
+    <span className="inline-block px-2.5 py-1 rounded-full text-xs border border-zinc-700 text-zinc-400 bg-zinc-800/60">
+      {status}
+    </span>
+  );
+}
 
 export function ProjectTable() {
   return (
@@ -52,58 +75,52 @@ export function ProjectTable() {
       <table className="w-full">
         <thead>
           <tr className="border-b border-zinc-800 bg-black">
-            <th className="text-left px-6 py-4 text-sm text-zinc-400">Proje Adı</th>
-            <th className="text-left px-6 py-4 text-sm text-zinc-400">Müşteri</th>
-            <th className="text-left px-6 py-4 text-sm text-zinc-400">Tip</th>
-            <th className="text-left px-6 py-4 text-sm text-zinc-400">m²</th>
-            <th className="text-left px-6 py-4 text-sm text-zinc-400">Bitiş Tarihi</th>
-            <th className="text-left px-6 py-4 text-sm text-zinc-400">İlerleme</th>
-            <th className="text-left px-6 py-4 text-sm text-zinc-400">Durum</th>
+            <th className="text-left px-4 py-3 text-xs text-zinc-400 whitespace-nowrap">Proje Adı</th>
+            <th className="text-left px-4 py-3 text-xs text-zinc-400 whitespace-nowrap">Müşteri</th>
+            <th className="text-left px-4 py-3 text-xs text-zinc-400 whitespace-nowrap">Tip</th>
+            <th className="text-left px-4 py-3 text-xs text-zinc-400 whitespace-nowrap">m²</th>
+            <th className="text-left px-4 py-3 text-xs text-zinc-400 whitespace-nowrap">Bitiş</th>
+            <th className="text-left px-4 py-3 text-xs text-zinc-400 whitespace-nowrap">İlerleme</th>
+            <th className="text-left px-4 py-3 text-xs text-zinc-400 whitespace-nowrap">Durum</th>
           </tr>
         </thead>
         <tbody>
           {projects.map((project, index) => (
-            <tr key={index} className="border-b border-zinc-800 hover:bg-zinc-800 cursor-pointer" onClick={() => window.location.href = '/project/1'}>
-              <td className="px-6 py-4">
-                <div className="text-sm text-white">{project.name}</div>
+            <tr
+              key={index}
+              className="border-b border-zinc-800 hover:bg-zinc-800/60 cursor-pointer"
+              onClick={() => (window.location.href = "/projects/1")}
+            >
+              <td className="px-4 py-3">
+                <div className="text-sm text-white whitespace-nowrap">{project.name}</div>
               </td>
-              <td className="px-6 py-4">
-                <div className="text-sm text-zinc-400">{project.location}</div>
+              <td className="px-4 py-3">
+                <div className="text-xs text-zinc-400 whitespace-nowrap">{project.location}</div>
               </td>
-              <td className="px-6 py-4">
-                <div className="text-sm text-zinc-400">MACFit | Keşif</div>
+              <td className="px-4 py-3">
+                <div className="text-xs text-zinc-400 whitespace-nowrap">MACFit | Keşif</div>
               </td>
-              <td className="px-6 py-4">
+              <td className="px-4 py-3">
                 <div className="text-sm text-white">{project.amount}</div>
               </td>
-              <td className="px-6 py-4">
-                <div className="text-sm text-zinc-400">{project.date}</div>
+              <td className="px-4 py-3">
+                <div className="text-xs text-zinc-400 whitespace-nowrap">{project.date}</div>
               </td>
-              <td className="px-6 py-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden">
+              <td className="px-4 py-3 min-w-[120px]">
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-white rounded-full"
+                      className="h-full bg-[#4F8CFF] rounded-full"
                       style={{ width: `${project.progress}%` }}
                     />
                   </div>
-                  <div className="text-sm text-zinc-400 w-10 text-right">
+                  <div className="text-xs text-zinc-400 w-8 text-right shrink-0">
                     {project.progress}%
                   </div>
                 </div>
               </td>
-              <td className="px-6 py-4">
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-xs ${
-                    project.statusType === "active"
-                      ? "bg-white text-black"
-                      : project.statusType === "subtle"
-                      ? "bg-zinc-800 text-zinc-300"
-                      : "bg-zinc-900 text-zinc-400 border border-zinc-800"
-                  }`}
-                >
-                  {project.status}
-                </span>
+              <td className="px-4 py-3">
+                <StatusBadge status={project.status} statusType={project.statusType} />
               </td>
             </tr>
           ))}

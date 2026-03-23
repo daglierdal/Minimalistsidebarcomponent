@@ -1,4 +1,5 @@
 import { Sidebar } from "./Sidebar";
+import { AICopilot } from "./AICopilot";
 import { Search, Plus } from "lucide-react";
 
 const customers = [
@@ -42,7 +43,7 @@ export function CustomerList() {
   return (
     <div className="flex h-screen bg-black">
       <Sidebar activePage="customers" />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         <main className="flex-1 overflow-y-auto p-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
@@ -53,7 +54,7 @@ export function CustomerList() {
                 <input
                   type="text"
                   placeholder="Müşteri ara..."
-                  className="pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-700 w-64"
+                  className="pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-700 w-56"
                 />
               </div>
               <button className="flex items-center gap-2 px-4 py-2 bg-[#4F8CFF] text-white rounded-lg hover:bg-[#6BA3FF] transition-colors">
@@ -81,7 +82,7 @@ export function CustomerList() {
           </div>
 
           {/* Customer Cards Grid */}
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-6">
             {customers.map((customer, index) => (
               <div
                 key={index}
@@ -131,6 +132,11 @@ export function CustomerList() {
           </div>
         </main>
       </div>
+      <AICopilot
+        context="Müşteriler"
+        welcomeMessage="3 müşteriniz var. MACFit en büyük müşteri: 5 proje, 2.45M ₺ ciro."
+        shortcuts={["Müşteri özeti", "En kârlı müşteri", "Proje geçmişi"]}
+      />
     </div>
   );
 }
