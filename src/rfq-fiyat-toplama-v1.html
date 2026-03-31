@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiyat Toplama (RFQ) - AkrotesOS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #000000;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#000000',
+                        'dark-card': '#111111',
+                        'accent-blue': '#4F8CFF',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-bg text-white min-h-screen">
+    
+    <!-- Container -->
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- Sidebar -->
+        <aside class="w-60 bg-dark-card border-r border-gray-800 flex flex-col">
+            <!-- Logo -->
+            <div class="h-16 flex items-center px-6 border-b border-gray-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-accent-blue rounded flex items-center justify-center font-bold">A</div>
+                    <span class="font-semibold text-lg">AkrotesOS</span>
+                </div>
+            </div>
+
+            <!-- User Info -->
+            <div class="px-4 py-4 border-b border-gray-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-sm font-medium">AS</div>
+                    <div>
+                        <div class="font-medium text-sm">Asiye</div>
+                        <div class="text-xs text-gray-400">Planlama</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto py-4 px-3">
+                <!-- Ana Menü -->
+                <div class="mb-6">
+                    <div class="text-xs font-semibold text-gray-500 uppercase mb-2 px-3">Ana Menü</div>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>📊</span>
+                        <span class="text-sm">Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>🏗️</span>
+                        <span class="text-sm">Projeler</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>👥</span>
+                        <span class="text-sm">Müşteriler</span>
+                    </a>
+                </div>
+
+                <!-- Teklif Yönetimi -->
+                <div class="mb-6">
+                    <div class="text-xs font-semibold text-gray-500 uppercase mb-2 px-3">Teklif Yönetimi</div>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>📄</span>
+                        <span class="text-sm">Teklifler</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>💰</span>
+                        <span class="text-sm">Maliyetler</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded bg-gray-800 text-accent-blue transition">
+                        <span>🔄</span>
+                        <span class="text-sm font-medium">Fiyat Toplama</span>
+                    </a>
+                </div>
+
+                <!-- Hakediş -->
+                <div class="mb-6">
+                    <div class="text-xs font-semibold text-gray-500 uppercase mb-2 px-3">Hakediş</div>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>📋</span>
+                        <span class="text-sm">Hakediş Listesi</span>
+                    </a>
+                </div>
+
+                <!-- Planlama Araçları -->
+                <div class="mb-6">
+                    <div class="text-xs font-semibold text-gray-500 uppercase mb-2 px-3">Planlama Araçları</div>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>📅</span>
+                        <span class="text-sm">İş Programı</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>📊</span>
+                        <span class="text-sm">Maliyet Listesi</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>📑</span>
+                        <span class="text-sm">Teklif Listesi</span>
+                    </a>
+                </div>
+
+                <!-- Sistem -->
+                <div>
+                    <div class="text-xs font-semibold text-gray-500 uppercase mb-2 px-3">Sistem</div>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-gray-800 transition">
+                        <span>⚙️</span>
+                        <span class="text-sm">Ayarlar</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Bar -->
+            <header class="h-16 bg-dark-card border-b border-gray-800 flex items-center justify-between px-6">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-xl font-semibold">Fiyat Toplama (RFQ)</h1>
+                    <span class="text-sm text-gray-400">Tedarikçi teklif yönetimi</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="p-2 hover:bg-gray-800 rounded transition">🔔</button>
+                    <button class="p-2 hover:bg-gray-800 rounded transition">⚙️</button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flex-1 overflow-auto p-6">
+                <div class="flex gap-6">
+                    
+                    <!-- Content Area -->
+                    <div class="flex-1">
+                        
+                        <!-- Action Bar -->
+                        <div class="bg-dark-card rounded-lg border border-gray-800 p-4 mb-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <button class="px-4 py-2 bg-accent-blue text-white rounded hover:bg-blue-600 transition font-medium">
+                                        + Yeni RFQ Oluştur
+                                    </button>
+                                    <button class="px-4 py-2 bg-gray-800 text-gray-300 rounded hover:bg-gray-700 transition">
+                                        📤 Toplu Gönder
+                                    </button>
+                                    <button class="px-4 py-2 bg-gray-800 text-gray-300 rounded hover:bg-gray-700 transition">
+                                        📥 İçe Aktar
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <input type="text" placeholder="RFQ veya proje ara..." class="px-4 py-2 bg-dark-bg border border-gray-700 rounded text-sm focus:outline-none focus:border-accent-blue w-64">
+                                    <select class="px-3 py-2 bg-dark-bg border border-gray-700 rounded text-sm focus:outline-none focus:border-accent-blue">
+                                        <option>Tüm Durumlar</option>
+                                        <option>Taslak</option>
+                                        <option>Gönderildi</option>
+                                        <option>Teklif Bekliyor</option>
+                                        <option>Tamamlandı</option>
+                                        <option>İptal</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Cards -->
+                        <div class="grid grid-cols-4 gap-4 mb-6">
+                            <div class="bg-dark-card rounded-lg border border-gray-800 p-4">
+                                <div class="text-gray-400 text-xs font-medium mb-2">TOPLAM RFQ</div>
+                                <div class="text-2xl font-bold">24</div>
+                            </div>
+                            <div class="bg-dark-card rounded-lg border border-gray-800 p-4">
+                                <div class="text-gray-400 text-xs font-medium mb-2">TEKLİF BEKLİYOR</div>
+                                <div class="text-2xl font-bold text-yellow-500">8</div>
+                            </div>
+                            <div class="bg-dark-card rounded-lg border border-gray-800 p-4">
+                                <div class="text-gray-400 text-xs font-medium mb-2">TAMAMLANDI</div>
+                                <div class="text-2xl font-bold text-green-500">12</div>
+                            </div>
+                            <div class="bg-dark-card rounded-lg border border-gray-800 p-4">
+                                <div class="text-gray-400 text-xs font-medium mb-2">TASLAK</div>
+                                <div class="text-2xl font-bold text-gray-500">4</div>
+                            </div>
+                        </div>
+
+                        <!-- RFQ List -->
+                        <div class="space-y-4">
+                            
+                            <!-- RFQ Item 1 - Teklif Bekliyor -->
+                            <div class="bg-dark-card rounded-lg border border-gray-800 hover:border-gray-700 transition">
+                                <div class="p-5">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-2">
+                                                <h3 class="font-semibold text-lg">RFQ-2024-0015</h3>
+                                                <span class="px-2 py-1 bg-yellow-500/10 text-yellow-500 text-xs rounded-full font-medium">Teklif Bekliyor</span>
+                                            </div>
+                                            <p class="text-gray-400 text-sm mb-1">Merkez Ofis Yapı İnşaatı</p>
+                                            <p class="text-gray-500 text-xs">Oluşturulma: 15 Mart 2024</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs text-gray-500 mb-1">Son Teklif Tarihi</div>
+                                            <div class="text-sm font-medium text-red-400">5 Nisan 2024</div>
+                                            <div class="text-xs text-red-400 mt-1">⏰ 6 gün kaldı</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-4 gap-4 mb-4 pb-4 border-b border-gray-800">
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Kalem Sayısı</div>
+                                            <div class="text-sm font-medium">24 malzeme</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Tedarikçi</div>
+                                            <div class="text-sm font-medium">5 tedarikçi</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Teklif Durumu</div>
+                                            <div class="text-sm font-medium text-yellow-500">3/5 teklif geldi</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">En Düşük Teklif</div>
+                                            <div class="text-sm font-medium text-green-400">₺245,890</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <div class="flex -space-x-2">
+                                                <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-dark-card flex items-center justify-center text-xs font-medium" title="Teklif Geldi">TK</div>
+                                                <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-dark-card flex items-center justify-center text-xs font-medium" title="Teklif Geldi">BM</div>
+                                                <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-dark-card flex items-center justify-center text-xs font-medium" title="Teklif Geldi">YS</div>
+                                                <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-dark-card flex items-center justify-center text-xs font-medium" title="Bekliyor">AS</div>
+                                                <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-dark-card flex items-center justify-center text-xs font-medium" title="Bekliyor">DY</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <button class="px-3 py-1.5 bg-accent-blue text-white rounded text-sm hover:bg-blue-600 transition">
+                                                📊 Teklifleri İncele
+                                            </button>
+                                            <button class="px-3 py-1.5 bg-gray-800 text-gray-300 rounded text-sm hover:bg-gray-700 transition">
+                                                ✏️ Düzenle
+                                            </button>
+                                            <button class="px-3 py-1.5 bg-gray-800 text-gray-300 rounded text-sm hover:bg-gray-700 transition">
+                                                📤 Hatırlatma Gönder
+                                            </button>
+                                            <button class="p-1.5 hover:bg-gray-800 rounded transition">⋮</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RFQ Item 2 - Tamamlandı -->
+                            <div class="bg-dark-card rounded-lg border border-gray-800 hover:border-gray-700 transition">
+                                <div class="p-5">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-2">
+                                                <h3 class="font-semibold text-lg">RFQ-2024-0014</h3>
+                                                <span class="px-2 py-1 bg-green-500/10 text-green-500 text-xs rounded-full font-medium">✓ Tamamlandı</span>
+                                            </div>
+                                            <p class="text-gray-400 text-sm mb-1">Demir Donatı ve Beton Tedariki</p>
+                                            <p class="text-gray-500 text-xs">Oluşturulma: 10 Mart 2024</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs text-gray-500 mb-1">Karar Tarihi</div>
+                                            <div class="text-sm font-medium">25 Mart 2024</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-4 gap-4 mb-4 pb-4 border-b border-gray-800">
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Kalem Sayısı</div>
+                                            <div class="text-sm font-medium">18 malzeme</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Tedarikçi</div>
+                                            <div class="text-sm font-medium">4 tedarikçi</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Teklif Durumu</div>
+                                            <div class="text-sm font-medium text-green-500">4/4 teklif geldi</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Kazanan Teklif</div>
+                                            <div class="text-sm font-medium text-accent-blue">₺189,500</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="text-sm text-gray-400">
+                                                Kazanan: <span class="text-white font-medium">Tuğkan İnşaat A.Ş.</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <button class="px-3 py-1.5 bg-accent-blue text-white rounded text-sm hover:bg-blue-600 transition">
+                                                📄 Rapor Görüntüle
+                                            </button>
+                                            <button class="px-3 py-1.5 bg-gray-800 text-gray-300 rounded text-sm hover:bg-gray-700 transition">
+                                                📥 Dışa Aktar
+                                            </button>
+                                            <button class="p-1.5 hover:bg-gray-800 rounded transition">⋮</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RFQ Item 3 - Gönderildi -->
+                            <div class="bg-dark-card rounded-lg border border-gray-800 hover:border-gray-700 transition">
+                                <div class="p-5">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-2">
+                                                <h3 class="font-semibold text-lg">RFQ-2024-0013</h3>
+                                                <span class="px-2 py-1 bg-blue-500/10 text-blue-400 text-xs rounded-full font-medium">Gönderildi</span>
+                                            </div>
+                                            <p class="text-gray-400 text-sm mb-1">Alçıpan ve Tavan Sistemleri</p>
+                                            <p class="text-gray-500 text-xs">Oluşturulma: 8 Mart 2024</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs text-gray-500 mb-1">Son Teklif Tarihi</div>
+                                            <div class="text-sm font-medium">10 Nisan 2024</div>
+                                            <div class="text-xs text-gray-400 mt-1">⏰ 11 gün kaldı</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-4 gap-4 mb-4 pb-4 border-b border-gray-800">
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Kalem Sayısı</div>
+                                            <div class="text-sm font-medium">32 malzeme</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Tedarikçi</div>
+                                            <div class="text-sm font-medium">6 tedarikçi</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Teklif Durumu</div>
+                                            <div class="text-sm font-medium text-gray-400">0/6 teklif geldi</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">En Düşük Teklif</div>
+                                            <div class="text-sm font-medium text-gray-500">-</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <div class="flex -space-x-2">
+                                                <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-dark-card flex items-center justify-center text-xs font-medium">MN</div>
+                                                <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-dark-card flex items-center justify-center text-xs font-medium">KB</div>
+                                                <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-dark-card flex items-center justify-center text-xs font-medium">YT</div>
+                                                <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-dark-card flex items-center justify-center text-xs font-medium">+3</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <button class="px-3 py-1.5 bg-accent-blue text-white rounded text-sm hover:bg-blue-600 transition">
+                                                👁️ Görüntüle
+                                            </button>
+                                            <button class="px-3 py-1.5 bg-gray-800 text-gray-300 rounded text-sm hover:bg-gray-700 transition">
+                                                ✏️ Düzenle
+                                            </button>
+                                            <button class="p-1.5 hover:bg-gray-800 rounded transition">⋮</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RFQ Item 4 - Taslak -->
+                            <div class="bg-dark-card rounded-lg border border-gray-800 hover:border-gray-700 transition opacity-75">
+                                <div class="p-5">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-2">
+                                                <h3 class="font-semibold text-lg">RFQ-2024-0012</h3>
+                                                <span class="px-2 py-1 bg-gray-700/50 text-gray-400 text-xs rounded-full font-medium">Taslak</span>
+                                            </div>
+                                            <p class="text-gray-400 text-sm mb-1">Elektrik ve Mekanik Tesisat</p>
+                                            <p class="text-gray-500 text-xs">Oluşturulma: 5 Mart 2024</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs text-gray-500 mb-1">Durum</div>
+                                            <div class="text-sm font-medium text-gray-500">Henüz gönderilmedi</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-4 gap-4 mb-4 pb-4 border-b border-gray-800">
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Kalem Sayısı</div>
+                                            <div class="text-sm font-medium">45 malzeme</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Tedarikçi</div>
+                                            <div class="text-sm font-medium">0 tedarikçi</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">Teklif Durumu</div>
+                                            <div class="text-sm font-medium text-gray-500">-</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">En Düşük Teklif</div>
+                                            <div class="text-sm font-medium text-gray-500">-</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-sm text-gray-500">
+                                            ⚠️ Tedarikçi seçimi ve detayları tamamlanmalı
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <button class="px-3 py-1.5 bg-accent-blue text-white rounded text-sm hover:bg-blue-600 transition">
+                                                ✏️ Düzenle
+                                            </button>
+                                            <button class="px-3 py-1.5 bg-gray-800 text-gray-300 rounded text-sm hover:bg-gray-700 transition">
+                                                🗑️ Sil
+                                            </button>
+                                            <button class="p-1.5 hover:bg-gray-800 rounded transition">⋮</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- AI Copilot Sidebar -->
+                    <aside class="w-80 bg-dark-card rounded-lg border border-gray-800 p-6 h-fit">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-xl">🤖</span>
+                            <h3 class="font-semibold">AI Copilot</h3>
+                        </div>
+                        
+                        <p class="text-sm text-gray-400 mb-6">
+                            RFQ süreçlerinizi hızlandırın. Tedarikçi seçimi, fiyat karşılaştırma ve teklif analizi için yardım alın.
+                        </p>
+
+                        <div class="space-y-3">
+                            <div class="text-xs font-semibold text-gray-500 uppercase mb-2">Hızlı İşlemler</div>
+                            
+                            <button class="w-full text-left p-3 bg-dark-bg hover:bg-gray-800 rounded border border-gray-800 transition">
+                                <div class="text-sm font-medium mb-1">📊 Teklif Karşılaştırma</div>
+                                <div class="text-xs text-gray-500">Gelen teklifleri analiz et</div>
+                            </button>
+
+                            <button class="w-full text-left p-3 bg-dark-bg hover:bg-gray-800 rounded border border-gray-800 transition">
+                                <div class="text-sm font-medium mb-1">🎯 En İyi Teklif</div>
+                                <div class="text-xs text-gray-500">Optimum tedarikçiyi bul</div>
+                            </button>
+
+                            <button class="w-full text-left p-3 bg-dark-bg hover:bg-gray-800 rounded border border-gray-800 transition">
+                                <div class="text-sm font-medium mb-1">📤 Toplu Gönderim</div>
+                                <div class="text-xs text-gray-500">RFQ'ları tedarikçilere gönder</div>
+                            </button>
+
+                            <button class="w-full text-left p-3 bg-dark-bg hover:bg-gray-800 rounded border border-gray-800 transition">
+                                <div class="text-sm font-medium mb-1">📈 Fiyat Trendi</div>
+                                <div class="text-xs text-gray-500">Geçmiş fiyatları analiz et</div>
+                            </button>
+
+                            <button class="w-full text-left p-3 bg-dark-bg hover:bg-gray-800 rounded border border-gray-800 transition">
+                                <div class="text-sm font-medium mb-1">⚙️ Tedarikçi Öneri</div>
+                                <div class="text-xs text-gray-500">Uygun tedarikçileri öner</div>
+                            </button>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-accent-blue/10 border border-accent-blue/20 rounded">
+                            <div class="text-xs font-semibold text-accent-blue mb-2">💡 ÖNERİ</div>
+                            <p class="text-xs text-gray-300">
+                                RFQ-2024-0015 için son teklif tarihi yaklaşıyor. 2 tedarikçiye hatırlatma göndermek ister misiniz?
+                            </p>
+                            <button class="mt-3 w-full px-3 py-1.5 bg-accent-blue text-white text-xs rounded hover:bg-blue-600 transition">
+                                Hatırlatma Gönder
+                            </button>
+                        </div>
+                    </aside>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,6 +1,14 @@
 import { Search, SlidersHorizontal } from "lucide-react";
 
-export function TopBar() {
+export function TopBar({ title }: { title?: string }) {
+  if (title) {
+    return (
+      <div className="bg-black border-b border-zinc-800 px-8 py-4">
+        <h2 className="text-2xl text-white">{title}</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-black border-b border-zinc-800 px-8 py-6">
       <div className="flex items-center justify-between mb-6">

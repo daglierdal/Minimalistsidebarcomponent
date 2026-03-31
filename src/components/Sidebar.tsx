@@ -1,42 +1,56 @@
-import { LayoutGrid, FolderOpen, Building2, FileText, BarChart3, ShoppingCart, Users, Settings, Cog } from "lucide-react";
+import { useNavigate, useLocation } from "react-router";
+import { LayoutGrid, FolderOpen, Building2, Settings, ClipboardList, DollarSign, Archive, CheckSquare, FileText } from "lucide-react";
 
-const groups = [
+interface MenuItem {
+  icon: any;
+  label: string;
+  path: string;
+  badge?: string;
+  badgeColor?: string;
+  disabled?: boolean;
+  accentColor?: string;
+}
+
+interface MenuGroup {
+  label: string;
+  items: MenuItem[];
+}
+
+const groups: MenuGroup[] = [
   {
     label: "Ana Menü",
     items: [
-      { icon: LayoutGrid, label: "Dashboard", page: "dashboard" },
-      { icon: FolderOpen, label: "Projeler", page: "projects" },
-      { icon: Building2, label: "Müşteriler", page: "customers" },
+      { icon: LayoutGrid, label: "Dashboard", path: "/" },
+      { icon: FolderOpen, label: "Aktif Projeler", path: "/projects", accentColor: "#22c55e" },
+      { icon: FileText, label: "İhale Pipeline", path: "/teklifler", accentColor: "#f97316" },
+      { icon: CheckSquare, label: "Görevlerim", path: "/gorevlerim" },
+      { icon: Building2, label: "Müşteriler", path: "/customers" },
     ],
   },
   {
-    label: "Teklif Yönetimi",
+    label: "Takip",
     items: [
-      { icon: FileText, label: "Teklifler", page: "teklifler", badge: "3", badgeColor: "bg-orange-500" },
-      { icon: BarChart3, label: "Maliyetler", page: "maliyetler" },
-    ],
-  },
-  {
-    label: "Operasyon",
-    items: [
-      { icon: ShoppingCart, label: "Satınalma", page: "satinalma", disabled: true },
-      { icon: Users, label: "Taşeron", page: "taseron", disabled: true },
+      { icon: FileText, label: "Teklif Takip", path: "/teklif-listesi" },
+      { icon: ClipboardList, label: "Hakediş Listesi", path: "/hakedis", badge: "2", badgeColor: "bg-purple-600" },
+      { icon: DollarSign, label: "Maliyet Özeti", path: "/maliyet-listesi" },
+      { icon: Archive, label: "Teklif Havuzu", path: "/teklif-havuzu" },
     ],
   },
   {
     label: "Sistem",
     items: [
-      { icon: Settings, label: "Ayarlar", page: "ayarlar" },
+      { icon: Settings, label: "Ayarlar", path: "/ayarlar" },
     ],
   },
 ];
 
-export function Sidebar({ activePage = "projects", user = "asiye" }: { activePage?: string; user?: "asiye" | "erdal" }) {
-  const handleNav = (page: string, disabled?: boolean) => {
-    if (disabled) return;
-    if (page === "projects") window.location.href = "/";
-    else if (page === "customers") window.location.href = "/customers";
-    else if (page === "dashboard") window.location.href = "/";
+export function Sidebar({ activePage, user = "asiye" }: { activePage?: string; user?: "asiye" | "erdal" }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
   };
 
   return (
@@ -54,28 +68,40 @@ export function Sidebar({ activePage = "projects", user = "asiye" }: { activePag
                 {group.label}
               </span>
             </div>
-            {group.items.map((item, ii) => (
-              <button
-                key={ii}
-                onClick={() => handleNav(item.page, item.disabled)}
-                disabled={item.disabled}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 mb-0.5 rounded-lg transition-colors ${
-                  item.disabled
-                    ? "text-zinc-700 cursor-not-allowed"
-                    : item.page === activePage
-                    ? "bg-zinc-800 text-white"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
-                }`}
-              >
-                <item.icon className="w-4 h-4 shrink-0" />
-                <span className="text-sm flex-1 text-left">{item.label}</span>
-                {item.badge && (
-                  <span className={`text-[10px] ${item.badgeColor} text-white rounded-full px-1.5 py-0.5 leading-none`}>
-                    {item.badge}
-                  </span>
-                )}
-              </button>
-            ))}
+            {group.items.map((item, ii) => {
+              const active = isActive(item.path);
+              return (
+                <button
+                  key={ii}
+                  onClick={() => !item.disabled && navigate(item.path)}
+                  disabled={item.disabled}
+                  className={`relative w-full flex items-center gap-3 px-3 py-2.5 mb-0.5 rounded-lg transition-colors ${
+                    item.disabled
+                      ? "text-zinc-700 cursor-not-allowed"
+                      : active
+                      ? "bg-zinc-800 text-white"
+                      : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
+                  }`}
+                >
+                  {item.accentColor && (
+                    <span
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r"
+                      style={{ backgroundColor: item.accentColor }}
+                    />
+                  )}
+                  <item.icon
+                    className="w-4 h-4 shrink-0"
+                    style={item.accentColor ? { color: item.accentColor } : undefined}
+                  />
+                  <span className="text-sm flex-1 text-left">{item.label}</span>
+                  {item.badge && (
+                    <span className={`text-[10px] ${item.badgeColor} text-white rounded-full px-1.5 py-0.5 leading-none`}>
+                      {item.badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         ))}
       </nav>

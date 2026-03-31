@@ -752,7 +752,7 @@ export function ProjectDetailNew() {
         <div className="flex-1 overflow-y-auto p-8">
 
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 mb-6 text-sm">
+          <div className="flex items-center gap-2 mb-4 text-sm">
             <span
               className="text-zinc-400 hover:text-white cursor-pointer transition-colors"
               onClick={() => (window.location.href = "/")}
@@ -763,6 +763,25 @@ export function ProjectDetailNew() {
             <span className="text-white">MACFit Forum İstanbul</span>
           </div>
 
+          {/* İhale Aşaması uyarı bandı */}
+          <div
+            className="flex items-center gap-3 px-4 py-3 rounded-xl mb-5"
+            style={{
+              background: "rgba(234,179,8,0.07)",
+              border: "1px solid rgba(234,179,8,0.25)",
+            }}
+          >
+            <div className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
+              <span className="text-amber-400 text-[10px]">!</span>
+            </div>
+            <span className="text-xs text-amber-300/90">
+              Bu proje ihale aşamasında —{" "}
+              <span className="text-amber-400">Satınalma</span> ve{" "}
+              <span className="text-amber-400">Taşeron</span> henüz göremez.
+              Yalnızca Planlama ve Erdal erişebilir.
+            </span>
+          </div>
+
           {/* Title Row */}
           <div className="flex items-center gap-4 mb-7">
             <h1 className="text-[26px] text-white flex-1">MACFit Forum İstanbul</h1>
@@ -770,8 +789,10 @@ export function ProjectDetailNew() {
               <Pencil className="w-3.5 h-3.5" />
               Düzenle
             </button>
-            <span className="px-3 py-1 rounded-full text-xs border border-green-500/50 text-green-400 bg-green-500/10">
-              Aktif
+            {/* Aktif badge yerine İhale Aşaması badge */}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs border border-[#4F8CFF]/40 text-[#4F8CFF] bg-[#4F8CFF]/10">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4F8CFF]" />
+              İhale Aşaması
             </span>
           </div>
 

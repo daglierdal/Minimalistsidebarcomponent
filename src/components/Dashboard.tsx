@@ -7,7 +7,7 @@ import { AICopilot } from "./AICopilot";
 export function Dashboard() {
   return (
     <div className="flex h-screen bg-black">
-      <Sidebar activePage="projects" />
+      <Sidebar activePage="dashboard" user="asiye" />
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         <TopBar />
         <main className="flex-1 overflow-y-auto p-8">
@@ -15,7 +15,11 @@ export function Dashboard() {
           <ProjectTable />
         </main>
       </div>
-      <AICopilot context="Projeler" />
+      <AICopilot
+        context="Dashboard"
+        welcomeMessage={"Merhaba Asiye! 4 aksiyon bekleyen işin var.\n• MACFit Forum teklifi onay bekliyor\n• Yargıcı hakedişi hazırlanacak\n• Koton BOQ'unda 4 fiyatsız kalem\n• MACFit Çankaya termini yaklaşıyor"}
+        shortcuts={["Aksiyon listesi", "Bu haftanın işleri", "Geciken projeler"]}
+      />
     </div>
   );
 }
