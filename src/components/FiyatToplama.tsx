@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import {
   ChevronRight,
   Home,
@@ -278,6 +279,7 @@ function TeklifHucre({
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function FiyatToplama() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"tedarikci" | "taseron">("tedarikci");
   const [rows, setRows] = useState<BOQSatir[]>(initialData);
 
@@ -317,7 +319,7 @@ export function FiyatToplama() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 mb-3">
             <button
-              onClick={() => (window.location.href = "/projects")}
+              onClick={() => navigate("/projects")}
               className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors flex items-center gap-1"
             >
               <Home className="w-3 h-3" />
@@ -325,7 +327,7 @@ export function FiyatToplama() {
             </button>
             <ChevronRight className="w-3 h-3 text-zinc-700" />
             <button
-              onClick={() => (window.location.href = "/projects/1")}
+              onClick={() => navigate("/projects/1")}
               className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
             >
               MACFit Forum İstanbul
@@ -398,7 +400,7 @@ export function FiyatToplama() {
           <div className="flex items-end gap-0">
             {[
               { id: "tedarikci", label: "Tedarikçi Teklifleri" },
-              { id: "taseron", label: "Ta��eron Teklifleri" },
+              { id: "taseron", label: "Taeron Teklifleri" },
             ].map((tab) => {
               const isActive = activeTab === tab.id;
               return (

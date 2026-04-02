@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router";
-import { LayoutGrid, FolderOpen, Building2, Settings, ClipboardList, DollarSign, Archive, CheckSquare, FileText } from "lucide-react";
+import { LayoutGrid, FolderOpen, Building2, Settings, ClipboardList, DollarSign, Archive, CheckSquare, FileText, LogOut } from "lucide-react";
 
 interface MenuItem {
   icon: any;
@@ -31,7 +31,7 @@ const groups: MenuGroup[] = [
     label: "Takip",
     items: [
       { icon: FileText, label: "Teklif Takip", path: "/teklif-listesi" },
-      { icon: ClipboardList, label: "Hakediş Listesi", path: "/hakedis", badge: "2", badgeColor: "bg-purple-600" },
+      { icon: ClipboardList, label: "Hakediş Listesi", path: "/hakedis", badge: "1", badgeColor: "bg-purple-600" },
       { icon: DollarSign, label: "Maliyet Özeti", path: "/maliyet-listesi" },
       { icon: Archive, label: "Teklif Havuzu", path: "/teklif-havuzu" },
     ],
@@ -118,6 +118,9 @@ export function Sidebar({ activePage, user = "asiye" }: { activePage?: string; u
                 Admin
               </div>
             </div>
+            <button className="w-7 h-7 flex items-center justify-center rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-zinc-900 transition-colors" title="Çıkış Yap">
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
           </div>
         ) : (
           <div className="flex items-center gap-3">
@@ -130,6 +133,9 @@ export function Sidebar({ activePage, user = "asiye" }: { activePage?: string; u
                 Planlama
               </div>
             </div>
+            <button className="w-7 h-7 flex items-center justify-center rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-zinc-900 transition-colors" title="Çıkış Yap">
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router";
 import {
   ChevronRight,
   Home,
@@ -158,6 +159,7 @@ function ProgressBadge({ pct, status }: { pct: number; status: Task["status"] })
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function IsProgram() {
+  const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<ViewMode>("hafta");
   const chartRef = useRef<HTMLDivElement>(null);
 
@@ -179,7 +181,7 @@ export function IsProgram() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 mb-3">
             <button
-              onClick={() => (window.location.href = "/projects")}
+              onClick={() => navigate("/projects")}
               className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors flex items-center gap-1"
             >
               <Home className="w-3 h-3" />
@@ -187,7 +189,7 @@ export function IsProgram() {
             </button>
             <ChevronRight className="w-3 h-3 text-zinc-700" />
             <button
-              onClick={() => (window.location.href = "/projects/2")}
+              onClick={() => navigate("/projects/2")}
               className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
             >
               MACFit Ankara

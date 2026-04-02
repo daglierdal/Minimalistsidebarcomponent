@@ -1,4 +1,5 @@
 import { useState, Fragment } from "react";
+import { useNavigate } from "react-router";
 import {
   ChevronRight,
   Building2,
@@ -713,6 +714,7 @@ function BOQTab() {
 /* ─────────────────────────── MAIN PAGE ──────────────────────────── */
 
 export function ProjectDetailNew() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("genel");
 
   const copilotConfig = {
@@ -755,7 +757,7 @@ export function ProjectDetailNew() {
           <div className="flex items-center gap-2 mb-4 text-sm">
             <span
               className="text-zinc-400 hover:text-white cursor-pointer transition-colors"
-              onClick={() => (window.location.href = "/")}
+              onClick={() => navigate("/")}
             >
               Projeler
             </span>

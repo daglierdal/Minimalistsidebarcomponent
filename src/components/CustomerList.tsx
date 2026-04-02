@@ -1,6 +1,7 @@
 import { Sidebar } from "./Sidebar";
 import { AICopilot } from "./AICopilot";
 import { Search, Plus } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const customers = [
   {
@@ -36,6 +37,7 @@ const customers = [
 ];
 
 export function CustomerList() {
+  const navigate = useNavigate();
   const totalCustomers = customers.length;
   const totalActiveProjects = customers.reduce((sum, c) => sum + c.active, 0);
   const totalRevenue = customers.reduce((sum, c) => sum + parseFloat(c.revenue.replace(/\./g, "")), 0);
@@ -87,6 +89,7 @@ export function CustomerList() {
               <div
                 key={index}
                 className="bg-[#111111] rounded-lg p-6 hover:shadow-[0_0_20px_rgba(79,140,255,0.3)] transition-shadow cursor-pointer"
+                onClick={() => navigate(`/customers/${customer.name.toLowerCase().replace(/\s+/g, "-")}`)}
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">

@@ -5,6 +5,7 @@ import { ProjectDetail } from "./components/ProjectDetail";
 import { ProjectDetailNew } from "./components/ProjectDetailNew";
 import { ProjectList } from "./components/ProjectList";
 import { CustomerList } from "./components/CustomerList";
+import { CustomerDetail } from "./components/CustomerDetail";
 import { BOQDetail } from "./components/BOQDetail";
 import { BOQPage } from "./components/BOQPage";
 import { ApprovalPage } from "./components/ApprovalPage";
@@ -17,6 +18,8 @@ import { TeklifListesi } from "./components/TeklifListesi";
 import { TeklifHavuzu } from "./components/TeklifHavuzu";
 import { Gorevlerim } from "./components/Gorevlerim";
 import { Ayarlar } from "./components/Ayarlar";
+import { YeniProjeFormu } from "./components/YeniProjeFormu";
+import { KesifNotlari } from "./components/KesifNotlari";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +33,7 @@ export const router = createBrowserRouter([
       { path: "projects/:id/approval", Component: ApprovalPage },
       { path: "projects/:id/boq", Component: BOQPage },
       { path: "customers", Component: CustomerList },
+      { path: "customers/:id", Component: CustomerDetail },
       { path: "boq/:id", Component: BOQDetail },
       { path: "fiyat-toplama", Component: FiyatToplama },
       { path: "teklifler", Component: Teklifler },
@@ -40,6 +44,8 @@ export const router = createBrowserRouter([
       { path: "teklif-havuzu", Component: TeklifHavuzu },
       { path: "gorevlerim", Component: Gorevlerim },
       { path: "ayarlar", Component: Ayarlar },
+      { path: "yeni-proje", Component: YeniProjeFormu },
+      { path: "kesif-notlari", Component: KesifNotlari },
     ],
   },
 ]);

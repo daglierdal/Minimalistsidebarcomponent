@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router";
 
 interface Project {
   id: string;
@@ -96,6 +97,7 @@ function StatusBadge({ durum }: { durum: Project["durum"] }) {
 }
 
 export function ProjectTable() {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Table header row */}
@@ -103,7 +105,7 @@ export function ProjectTable() {
         <span className="text-sm text-zinc-400">Projeler</span>
         <button
           className="text-xs text-[#4F8CFF] hover:text-white transition-colors flex items-center gap-1"
-          onClick={() => (window.location.href = "/")}
+          onClick={() => navigate("/")}
         >
           Tümünü gör <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
@@ -140,7 +142,7 @@ export function ProjectTable() {
                 key={project.id}
                 className="border-b border-zinc-800/40 hover:bg-zinc-800/20 cursor-pointer transition-colors group"
                 style={{ background: "#111111" }}
-                onClick={() => (window.location.href = `/projects/${project.id}`)}
+                onClick={() => navigate(`/projects/${project.id}`)}
               >
                 {/* Proje Adı */}
                 <td className="px-4 py-3.5">

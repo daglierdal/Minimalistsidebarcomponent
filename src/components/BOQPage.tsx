@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { Sidebar } from "./Sidebar";
 import { AICopilot } from "./AICopilot";
 import {
@@ -479,6 +480,8 @@ export function BOQPage() {
       return d.malzemeBF === 0 && d.iscilikBF === 0;
     }).length;
 
+  const navigate = useNavigate();
+
   return (
     <div className="flex h-screen bg-black overflow-hidden">
       <Sidebar activePage="projects" user="asiye" />
@@ -493,7 +496,7 @@ export function BOQPage() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 mb-3">
             <button
-              onClick={() => (window.location.href = "/projects")}
+              onClick={() => navigate("/projects")}
               className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors flex items-center gap-1"
             >
               <Home className="w-3 h-3" />
@@ -501,7 +504,7 @@ export function BOQPage() {
             </button>
             <Chevron className="w-3 h-3 text-zinc-700" />
             <button
-              onClick={() => (window.location.href = "/projects/1")}
+              onClick={() => navigate("/projects/1")}
               className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
             >
               MACFit Ankara

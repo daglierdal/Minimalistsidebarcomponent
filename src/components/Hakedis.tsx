@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import {
   ChevronRight,
   Home,
@@ -144,6 +145,7 @@ function StatusBadge({ durum }: { durum: HakedisStatus }) {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function Hakedis() {
+  const navigate = useNavigate();
   const [selectedRow, setSelectedRow] = useState<string | null>("h3");
 
   const sozlesmeBedeli = 4_200_000;
@@ -197,7 +199,7 @@ export function Hakedis() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 mb-3">
             <button
-              onClick={() => (window.location.href = "/projects")}
+              onClick={() => navigate("/projects")}
               className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors flex items-center gap-1"
             >
               <Home className="w-3 h-3" />
@@ -205,7 +207,7 @@ export function Hakedis() {
             </button>
             <ChevronRight className="w-3 h-3 text-zinc-700" />
             <button
-              onClick={() => (window.location.href = "/projects/2")}
+              onClick={() => navigate("/projects/2")}
               className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
             >
               MACFit Ankara

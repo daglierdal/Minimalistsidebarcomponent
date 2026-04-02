@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { AICopilot } from "./AICopilot";
+import { useNavigate } from "react-router";
 import {
   Search,
   ChevronDown,
@@ -170,6 +171,7 @@ function FilterSelect({
 }
 
 export function ProjectList() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [musteri, setMusteri] = useState("Tüm Müşteriler");
   const [tip, setTip] = useState("Tüm Tipler");
@@ -298,7 +300,7 @@ export function ProjectList() {
                       key={project.id}
                       className="border-b border-zinc-900 hover:bg-zinc-900/40 transition-colors cursor-pointer group"
                       style={{ background: "#111111" }}
-                      onClick={() => (window.location.href = `/projects/${project.id}`)}
+                      onClick={() => navigate(`/projects/${project.id}`)}
                     >
                       {/* Proje Adı */}
                       <td className="px-4 py-3.5">
@@ -366,7 +368,7 @@ export function ProjectList() {
                       <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center gap-1">
                           <button
-                            onClick={() => (window.location.href = `/projects/${project.id}`)}
+                            onClick={() => navigate(`/projects/${project.id}`)}
                             className="w-7 h-7 rounded-lg flex items-center justify-center text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800 transition-colors"
                           >
                             <ArrowUpRight className="w-3.5 h-3.5" />

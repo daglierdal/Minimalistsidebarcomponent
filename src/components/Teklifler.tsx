@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import {
   ChevronRight,
   Home,
@@ -113,6 +114,7 @@ function DurumBadge({ durum }: { durum: DisciplineRow["durum"] }) {
 
 export function Teklifler() {
   const [activeRev, setActiveRev] = useState<RevizID>("rev1");
+  const navigate = useNavigate();
   const rev = revisions.find((r) => r.id === activeRev)!;
 
   const totalMaliyet = rev.rows.reduce((s, r) => s + r.maliyet, 0);
@@ -164,7 +166,7 @@ export function Teklifler() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 mb-3">
             <button
-              onClick={() => (window.location.href = "/projects")}
+              onClick={() => navigate("/projects")}
               className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors flex items-center gap-1"
             >
               <Home className="w-3 h-3" />
@@ -172,7 +174,7 @@ export function Teklifler() {
             </button>
             <ChevronRight className="w-3 h-3 text-zinc-700" />
             <button
-              onClick={() => (window.location.href = "/projects/1")}
+              onClick={() => navigate("/projects/1")}
               className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
             >
               MACFit Forum İstanbul

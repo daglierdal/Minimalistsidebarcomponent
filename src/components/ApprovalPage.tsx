@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronRight, Check, X, Pencil } from "lucide-react";
+import { useNavigate } from "react-router";
 import { Sidebar } from "./Sidebar";
 import { AICopilot } from "./AICopilot";
 
@@ -34,6 +35,7 @@ const disciplines: DisciplineRow[] = [
 /* ─────────────────────────── COMPONENT ──────────────────────────── */
 
 export function ApprovalPage() {
+  const navigate = useNavigate();
   const [note, setNote] = useState("");
   const [decision, setDecision] = useState<"approved" | "rejected" | "revise" | null>(null);
 
@@ -53,14 +55,14 @@ export function ApprovalPage() {
           <div className="flex items-center gap-2 mb-6 text-sm">
             <span
               className="text-zinc-400 hover:text-white cursor-pointer transition-colors"
-              onClick={() => (window.location.href = "/")}
+              onClick={() => navigate("/")}
             >
               Projeler
             </span>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <span
               className="text-zinc-400 hover:text-white cursor-pointer transition-colors"
-              onClick={() => (window.location.href = "/projects/1")}
+              onClick={() => navigate("/projects/1")}
             >
               MACFit Forum İstanbul
             </span>
